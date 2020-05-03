@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
+
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -69,7 +70,7 @@
          
             /* Style the header */
             .header {
-              background-color: #f44336;
+              background-color: lightblue;
               padding: 30px 40px;
               color: white;
               text-align: center;
@@ -107,54 +108,22 @@
               border-radius: 0;
               border: none;
             }
-
             .addBtn:hover {
               background-color: #bbb;
             }
         </style>
     </head>
     <body>
-        <form action="">
+      
+    <form action="{{route('postEdit')}}" method="POST">
+            @csrf
             <div id="myDIV" class="header">
-              <h2>My To Do List</h2>
-              <input type="text" name="newTask" placeholder="Title...">
-              <button type="submit" class="addBtn">Add</button>
+              <h2>Update task</h2>
+            <input type="hidden" name="id" value="{{$task->id}}">
+            <input type="text" name="name" value="{{$task->name}}">
+              <button type="submit" class="addBtn">update</button>
             </div>
-        </form>
-        <ul id="myUL">
-          <li>
-            <div class="task">
-                Hit the gym
-            </div>
-            <div class="action">
-                <a href=""><i class="fa fa-edit"></i></a>
-            </div>
-            <div class="action">
-                <a href=""><i class="fa fa-trash-alt"></i></a> 
-            </div>
-          </li>
-          <li>
-            <div class="task">
-               Make some food
-            </div>
-            <div class="action">
-                <a href=""><i class="fa fa-edit"></i></a>
-            </div>
-            <div class="action">
-                <a href=""><i class="fa fa-trash-alt"></i></a> 
-            </div>
-          </li>
-          <li>
-            <div class="task">
-               Finish quiz
-            </div>
-            <div class="action">
-                <a href=""><i class="fa fa-edit"></i></a>
-            </div>
-            <div class="action">
-                <a href=""><i class="fa fa-trash-alt"></i></a> 
-            </div>
-          </li>
-        </ul>
+        </form>         
+        @yield('content')
     </body>
 </html>

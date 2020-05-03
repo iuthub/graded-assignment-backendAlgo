@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TasksController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,7 +13,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', 'TasksController@getAll')->name('getAll');
+    Route::post('/', 'TasksController@postAdd')->name('postAdd');
+    Route::post('edit', 'TasksController@postEdit')->name('postEdit');
+    Route::get('edit/{id}', 'TasksController@getEdit')->name('getEdit');
+    Route::get('delete/{id}', 'TasksController@deleteTask')->name('deleteTask');    
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
